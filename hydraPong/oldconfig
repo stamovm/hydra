@@ -1,0 +1,115 @@
+include "/home/roger/.hydrarc"
+
+define listenerPosition
+{
+	type SixDOF
+	sixDOF head
+}
+
+define listenerForward
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(0,0,-1)
+}
+
+define listenerUp
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(0,1,0)
+}
+
+define audio
+{
+	type AL
+	position listenerPosition
+	forward listenerForward
+	up	listenerUp
+}
+
+list userThread
+{
+	#plugin audio
+}
+
+#define desktop
+#{
+#	machines
+#	{
+#		#thisMachine
+#		#weasel
+#		passiveWeasel
+#		#hedgehog
+#	}
+#	networkMaps
+#	{
+#		vrpad
+#	}
+#	inputMaps
+#	{
+#		keyboardMap
+#		vrpnMap
+#		wiimoteMap
+#		userMap
+#	}
+#}
+
+define ssh
+{
+	type SSH
+	prefix "LD_LIBRARY_PATH=/home/roger/hydra/hydra/lib:$LD_LIBRARY_PATH "
+}
+
+define weasel
+{
+	hostname weasel
+	executor ssh
+	sshAddress weasel
+	TCPaddress weasel
+	threads
+	{
+		update
+		userThread
+	}
+}
+
+define passiveLL
+{
+	type static
+	position vec(-0.227698, 0.842047, -1.22782)
+}
+
+define passiveLR
+{
+	type static
+	position vec(1.9159, 0.768375, -1.29772)
+}
+
+define passiveUL
+{
+	type static
+	position vec(-0.208744, 2.33805, -1.11287)
+}
+
+define passiveLeftWindow
+{
+	lowerLeft passiveLL
+	lowerRight passiveLR
+	upperLeft passiveUL
+	monoEye leftEye
+	far 10000.0
+	near 0.01
+	fullscreen true
+}
+
+define passiveRightWindow
+{
+	lowerLeft passiveLL
+	lowerRight passiveLR
+	upperLeft passiveUL
+	monoEye rightEye
+	far 10000.0
+	near 0.01
+	fullscreen true
+}

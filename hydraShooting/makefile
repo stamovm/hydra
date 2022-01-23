@@ -1,0 +1,9 @@
+INCLUDE_PATHS=-I/home/mstamov/hydra/hydra/include
+INCLUDE_PATHS+=-I/home/mstamov/hydra/extensions/gfx/include
+#INCLUDE_PATHS+=-I/home/roger/dev/hydra/extensions/parameters/include
+
+all:
+	g++ -g -Wno-deprecated-declarations shooting.cpp -DUNIX  ${INCLUDE_PATHS} -L/home/mstamov/hydra/build/lib -lhydra -lhydragfx -lopenal -lalut -lGL -lglut -lGLU -lSOIL
+
+clean:
+	rm  a.out

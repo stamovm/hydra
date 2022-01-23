@@ -1,0 +1,546 @@
+define ssh
+{
+	type SSH
+	prefix "LD_LIBRARY_PATH=/home/roger/dev/hydra/build/lib"
+}
+
+define window
+{
+	lowerLeft cameraLL
+	lowerRight cameraLR
+	upperLeft cameraUL
+	monoEye monoEye
+	far 10000.0
+	near 0.01
+}
+
+#define passiveLeftWindow
+#{
+#	lowerLeft cameraLL
+#	lowerRight cameraLR
+#	upperLeft cameraUL
+#	monoEye leftEye
+#	far 10000.0
+#	near 0.01
+#	fullscreen true
+#}
+#
+#define passiveRightWindow
+#{
+#	lowerLeft cameraLL
+#	lowerRight cameraLR
+#	upperLeft cameraUL
+#	monoEye rightEye
+#	far 10000.0
+#	near 0.01
+#	fullscreen true
+#}
+
+define simWindow
+{
+	simulator true
+	far 10000.0
+	near 0.01
+}
+
+define listenerPosition
+{
+	type SixDOF
+	sixDOF head
+}
+
+define listenerForward
+{
+	type SixDOF
+	sixDOF head
+	#postTransform translate(0,0,-1)
+	preTransform translate(0,0,-1)
+}
+
+define listenerUp
+{
+	type SixDOF
+	sixDOF head
+	#postTransform translate(0,1,0)
+	preTransform translate(0,1,0)
+}
+
+define audio
+{
+	type AL
+	position listenerPosition
+	forward listenerForward
+	up	listenerUp
+}
+
+list userThread
+{
+	plugin audio
+}
+
+define desktop
+{
+	machines
+	{
+		thisMachine
+		#hedgehog
+		#mongoose
+		#passiveWeasel
+	}
+	networkMaps
+	{
+		vrpad
+	}
+	inputMaps
+	{
+		keyboardMap
+		vrpnMap
+		wiimoteMap
+		#userMap
+	}
+}
+
+define hypnotoadConfig
+{
+	machines
+	{
+		#thisMachine
+		#hedgehog
+		#mongoose
+		passiveWeasel
+	}
+	networkMaps
+	{
+		vrpad
+	}
+	inputMaps
+	{
+		hypnoKeyboardMap
+		vrpnMap
+		wiimoteMap
+		userMap
+	}
+}
+
+define wiimote
+{
+	buttons 
+	{ 
+		Wiimote0 
+#		Wiimote1 
+	}
+	valuators
+	{
+		Wiimote0
+#		Wiimote1
+	}
+	address hypnotoad
+	type VRPN
+}
+
+define keyboardMap
+{
+	buttonMap keyboardButtons
+	valuatorMap keyboardValuators
+}
+
+define keyboardButtons
+{
+	exit	keyboard[Escape]
+	#button0 keyboard[q]
+	#button1 keyboard[w]
+	button0 keyboard[0]
+	button1 keyboard[1]
+	button2 keyboard[2]
+	button3 keyboard[3]
+	button4 keyboard[4]
+	button5 keyboard[5]
+	button6 keyboard[6]
+	button7 keyboard[7]
+	button8 keyboard[8]
+	button9 keyboard[9]
+}
+
+define hypnoKeyboardMap
+{
+	buttonMap hypnoKeyboardButtons
+}
+
+define hypnoKeyboardButtons
+{
+	exit	keyboard[Escape]
+}
+
+define keyboardValuators
+{
+	xAxis2	keyboard[x0]
+	yAxis2	keyboard[y0]
+}
+
+define vrpnMap
+{
+	sixDOFMap vrpnSixDOFs
+}
+
+define vrpnSixDOFs
+{
+	wand	vrpn[Wii-1[0]]
+	wand0	vrpn[Wii-1[0]]
+	wand1	vrpn[Wii-1[0]]
+	wand2	vrpn[Wii-2[0]]
+	head	vrpn[Glasses[0]]
+}
+
+define wiimoteMap
+{
+	buttonMap wiimoteButtons
+	valuatorMap wiimoteValuators	
+}
+
+define wiimoteButtons
+{
+	"button0" wiimote[Wiimote0[0]]
+	"button1" wiimote[Wiimote0[1]]
+	"button2" wiimote[Wiimote0[2]]
+	"button3" wiimote[Wiimote0[3]]
+	"button4" wiimote[Wiimote0[4]]
+	"button5" wiimote[Wiimote0[5]]
+	"button6" wiimote[Wiimote0[6]]
+	"button7" wiimote[Wiimote0[7]]
+	"button8" wiimote[Wiimote0[8]]
+	"button9" wiimote[Wiimote0[9]]
+	"button10" wiimote[Wiimote0[10]]
+	"button11" wiimote[Wiimote0[11]]
+	"button12" wiimote[Wiimote0[12]]
+}
+
+define wiimoteValuators
+{
+	xAxis wiimote[Wiimote0[0]]
+	yAxis wiimote[Wiimote0[1]]
+#	xAxis2 wiimote[Wiimote1[0]]
+#	yAxis2 wiimote[Wiimote1[1]]
+}
+
+define TCP
+{
+	type TCP
+	port 89521
+}
+
+map vrpad
+{
+	* * TCP
+}
+
+define monoEye
+{
+	type SixDOF
+	sixDOF head
+}
+
+define leftEye
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(-0.0315, -0.0315, 0.01575)
+	#type static
+	#position vec(0,2,0)
+}
+
+define rightEye
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(0.0315, -0.0315, 0.01575)
+	#type static
+	#position vec(0,2,0)
+}
+
+define cameraLL
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(-1.0,-1.0,-1.0)
+}
+
+define cameraLR
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(1.0,-1.0,-1.0)
+}
+
+define cameraUL
+{
+	type SixDOF
+	sixDOF head
+	postTransform translate(-1.0,1.0,-1.0)
+}
+
+define renderer
+{
+	type X11GL
+	display ":0.0"
+	windows 
+	{ 
+		window 
+		simWindow
+	}
+	inputName keyboard
+}
+
+define leftRenderer
+{
+	type X11GL
+	display ":0.2"
+	windows 
+	{ 
+		passiveLeftWindow
+	}
+	inputName keyboard
+}
+
+define rightRenderer
+{
+	type X11GL
+	display ":0.1"
+	windows 
+	{ 
+		passiveRightWindow
+	}
+	inputName keyboard
+}
+
+define stereoRenderer
+{
+	type X11GL
+	display ":0.0"
+	windows 
+	{ 
+		passiveLeftWindow
+		passiveRightWindow
+	}
+	inputName keyboard
+}
+
+define hypnotoad
+{
+	configuration hypnotoadConfig
+	pluginPaths
+	{
+		#"/home/roger/limbo/svn/hydra/build/lib/plugins"
+		"/home/roger/dev/hydra/build/lib/plugins"
+	}
+}
+
+define system
+{
+	configuration desktop
+	pluginPaths
+	{
+		"/home/roger/dev/hydra/build/lib/plugins"
+	}
+}
+
+list update
+{
+	system sync
+	user update
+	plugin renderer
+	plugin renderer
+}
+
+list vrpn
+{
+	plugin vrpn
+	plugin wiimote
+}
+
+list spareRender
+{
+	plugin renderer
+}
+
+define vrpn
+{
+	type VRPN
+	address "192.168.0.75"
+	sixDOFs
+	{
+		Wii-1
+		Wii-2
+		Glasses
+	}
+}
+
+list vrpnThread
+{
+	user update
+	plugin vrpn
+}
+
+define thisMachine
+{
+	hostname $HOSTNAME
+	executor ssh
+	sshAddress $HOSTNAME
+	threads
+	{
+		update
+		vrpn
+		#spareRender
+		userThread
+	}
+}
+
+define hedgehog
+{
+	hostname hedgehog
+	executor ssh
+	sshAddress hedgehog
+	TCPaddress hedgehog
+	threads
+	{
+		update
+		vrpn
+		spareRender
+		userThread
+	}
+}
+
+define mongoose
+{
+	hostname mongoose
+	executor ssh
+	sshAddress mongoose
+	TCPaddress mongoose
+	threads
+	{
+		update
+	}
+}
+
+#define hypnotoad
+#{
+#	hostname hypnotoad
+#	executor ssh
+#	sshAddress "vrpad.cse.unr.edu"
+#	threads
+#	{
+#		update
+#		userThread
+#	}
+#}
+
+list passiveStereoThread
+{
+	plugin stereoRenderer
+}
+
+list passiveStereoLeftThread
+{
+	plugin leftRenderer
+}
+
+list passiveStereoRightThread
+{
+	plugin rightRenderer
+}
+
+list passiveUpdate
+{
+	system sync
+	user update
+}
+
+list streamerThread
+{
+	plugin streamRenderer
+}
+
+define passiveWeasel
+{
+	hostname hypnotoad
+	executor ssh
+	sshAddress hypnotoad
+	TCPaddress hypnotoad
+	threads
+	{
+		vrpn
+		passiveUpdate
+		#update
+		userThread
+		#passiveStereoThread
+		passiveStereoLeftThread
+		passiveStereoRightThread
+		streamerThread
+	}
+}
+
+define passiveLL
+{
+	type static
+	#position vec(-0.227698, 0.842047, -1.22782)
+	position vec(-1.27645, 0.804566, -1.55254)
+}
+
+define passiveLR
+{
+	type static
+	position vec(1.11245, 0.835587, -1.58062)
+}
+
+define passiveUL
+{
+	type static
+	position vec(-1.23569, 2.5387, -1.52461)
+}
+
+define passiveLeftWindow
+{
+	lowerLeft passiveLL
+	lowerRight passiveLR
+	upperLeft passiveUL
+	monoEye leftEye
+	far 100000.0
+	near 0.01
+	fullscreen true
+	xPosition 1000
+	hideCursor true
+}
+
+define passiveRightWindow
+{
+	lowerLeft passiveLL
+	lowerRight passiveLR
+	upperLeft passiveUL
+	monoEye rightEye
+	far 100000.0
+	near 0.01
+	fullscreen true
+	hideCursor true
+}
+
+define streamWindow
+{
+	lowerLeft cameraLL
+	lowerRight cameraLR
+	upperLeft cameraUL
+	monoEye monoEye
+	far 10000.0
+	near 0.01
+	port 9001
+	clientAddress mongoose
+	render streamRender
+}
+
+define streamRenderer
+{
+	type GLStream
+	display ":0.0"
+	#init initStreamContext
+	init initContext
+	inputName keyboard
+	port 11116
+}

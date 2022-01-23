@@ -1,0 +1,4 @@
+all:
+	#g++ main.cpp -I/home/roger/sandbox/svn/hydra/hydra/include -L/home/roger/sandbox/svn/hydra/hydra/lib -lhydra -lhydragfx -lopenal -lalut
+	#g++ main.cpp -I/home/roger/sandbox/svn/hydra/hydra/include -L/home/roger/sandbox/svn/hydra/hydra/lib -lhydra -lhydragfx -lopenal -lalut
+	g++ main.cpp -I/home/roger/distro/hydra/hydra/include -L/home/roger/cmake/build/hydra/ -lhydra -lopenal -lalut -lGL -lglut
